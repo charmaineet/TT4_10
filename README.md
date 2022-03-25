@@ -13,3 +13,15 @@ User
 
 Pass
 >admin123
+
+### AWS EC2
+Hosting for REACT app and FLASK API
+
+PUBLIC DNS
+>ec2-52-221-194-162.ap-southeast-1.compute.amazonaws.com
+
+REACT APP Port
+>3000
+
+FLASK API Port
+>5000
