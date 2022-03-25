@@ -1,11 +1,8 @@
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Login from "./components/Login.js";
 
-function App() {
-  return (
-    <div className="App">
-      Hello World!
-    </div>
-  );
+export default function App() {
+  <div>
+    <Login />
+  </div>;
 }
-
-export default App;
