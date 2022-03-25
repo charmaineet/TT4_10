@@ -22,7 +22,7 @@ export default function Home() {
     setToggle2((prevtoggle2) => !prevtoggle2);
   }
   React.useEffect(() => {
-    fetch("http://ec2-52-221-194-162.ap-southeast-1.compute.amazonaws.com:5000/customer?CustomerId=8")
+    fetch("http://ec2-52-221-194-162.ap-southeast-1.compute.amazonaws.com:5000/customerloan?CustomerId=8")
       .then((res) => res.json())
       .then((data) => SetLoan(data));
   }, []
@@ -41,6 +41,7 @@ export default function Home() {
       .then((data) => SetLoanHistory(data));
   }, []
   );
+  console.log(loan)
 
   const History = loanHistory.map((d) => <li key={d.name}>{d.name}</li>);
   
