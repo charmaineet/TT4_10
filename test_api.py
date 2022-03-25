@@ -207,4 +207,4 @@ def customer_loan_get():
     sql_modules = curr.fetchall()
     return jsonify(sql_modules)
 
-app.run(debug=True)
+app.run(debug=True,host='0.0.0.0')
