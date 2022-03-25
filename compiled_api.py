@@ -71,7 +71,6 @@ def signup_post():
 
 @app.route('/logout')
 @cross_origin(supports_credentials=True)
-@login_required
 def logout():
     logout_user()
     return 'Logout successful'
@@ -80,7 +79,6 @@ def logout():
 # endpoints to get loans/balances
 @app.route('/customer', methods=['GET'])
 @cross_origin(supports_credentials=True)
-@login_required
 def customer_get():
     if len(request.args) > 1:
         return jsonify({
@@ -103,7 +101,6 @@ def customer_get():
 
 @app.route('/loan', methods=['GET'])
 @cross_origin(supports_credentials=True)
-@login_required
 def loan_get():
     parameter_list = ['loanId', 'loan_amount']
 
@@ -122,7 +119,6 @@ def loan_get():
 
 @app.route('/customer', methods=['PUT'])
 @cross_origin(supports_credentials=True)
-@login_required
 def customer_put():
     parameters = {
         'CustomerId': '\'None\'',
@@ -156,7 +152,6 @@ def customer_put():
 
 @app.route('/loan', methods=['PUT'])
 @cross_origin(supports_credentials=True)
-@login_required
 def loan_put():
     parameters = {
         'LoanId': '\'None\'',
@@ -180,7 +175,6 @@ def loan_put():
 
 @app.route('/customer/update_balance', methods=['PATCH'])
 @cross_origin(supports_credentials=True)
-@login_required
 def customer_patch_balance():
     if 'CustomerId' in request.args:
         curr.execute('UPDATE customer SET balance = \'{0}\' WHERE CustomerId = \'{1}\''.format(request.args['balance'],
@@ -199,7 +193,6 @@ def customer_patch_balance():
 
 @app.route('/customer/update_phone', methods=['PATCH'])
 @cross_origin(supports_credentials=True)
-@login_required
 def customer_patch_phone():
     if 'CustomerId' in request.args:
         curr.execute('UPDATE customer SET customer_phone = \'{0}\' WHERE CustomerId = \'{1}\''.format(
@@ -217,7 +210,6 @@ def customer_patch_phone():
 
 @app.route('/customer/update_address', methods=['PATCH'])
 @cross_origin(supports_credentials=True)
-@login_required
 def customer_patch_address():
     if 'CustomerId' in request.args:
 
@@ -237,7 +229,6 @@ def customer_patch_address():
 
 @app.route('/loan/update_amount', methods=['PATCH'])
 @cross_origin(supports_credentials=True)
-@login_required
 def loan_patch_loan_amount():
     if 'LoanId' in request.args:
 
@@ -257,7 +248,6 @@ def loan_patch_loan_amount():
 
 @app.route('/customer/deletebyid', methods=['DELETE'])
 @cross_origin(supports_credentials=True)
-@login_required
 def customer_delete():
     if 'CustomerId' in request.args:
 
@@ -272,7 +262,6 @@ def customer_delete():
 
 @app.route('/loan/deletebyid', methods=['DELETE'])
 @cross_origin(supports_credentials=True)
-@login_required
 def loan_delete():
     if 'LoanId' in request.args:
 
@@ -287,7 +276,6 @@ def loan_delete():
 
 @app.route('/customerloan', methods=['GET'])
 @cross_origin(supports_credentials=True)
-@login_required
 def customer_loan_get():
     curr.execute(
         "SELECT customer_name,SUM(loan_amount) FROM customer INNER JOIN customerloan ON customer.CustomerId=customerloan.CustomerId INNER JOIN loan on customerloan.LoanId = loan.LoanId WHERE customer.CustomerId = \'{0}\'".format(
