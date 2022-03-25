@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import login_required
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -7,6 +8,7 @@ import pymysql
 import uuid
 
 app = Flask(__name__)
+CORS(app, support_credentials=True)
 mysql = MySQL()
 app.config['MYSQL_DATABASE_USER'] = 'admin'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'admin123'
@@ -19,12 +21,14 @@ curr = conn.cursor()
 
 # login endpoints
 
-@auth.route('/login')
+@app.route('/login')
+@cross_origin(supports_credentials=True)
 def login():
     return 'Login'
 
 
-@auth.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
@@ -39,12 +43,14 @@ def login_post():
     return 'Login successful'
 
 
-@auth.route('/signup')
+@app.route('/signup')
+@cross_origin(supports_credentials=True)
 def signup():
     return 'Signup'
 
 
-@auth.route('/signup', methods=['POST'])
+@app.route('/signup', methods=['POST'])
+@cross_origin(supports_credentials=True)
 def signup_post():
     email = request.form.get('email')
     password = request.form.get('password')
@@ -63,7 +69,8 @@ def signup_post():
     return 'Signup successful'
 
 
-@auth.route('/logout')
+@app.route('/logout')
+@cross_origin(supports_credentials=True)
 @login_required
 def logout():
     logout_user()
@@ -72,6 +79,7 @@ def logout():
 
 # endpoints to get loans/balances
 @app.route('/customer', methods=['GET'])
+@cross_origin(supports_credentials=True)
 @login_required
 def customer_get():
     if len(request.args) > 1:
@@ -94,6 +102,7 @@ def customer_get():
 
 
 @app.route('/loan', methods=['GET'])
+@cross_origin(supports_credentials=True)
 @login_required
 def loan_get():
     parameter_list = ['loanId', 'loan_amount']
@@ -112,6 +121,7 @@ def loan_get():
 
 
 @app.route('/customer', methods=['PUT'])
+@cross_origin(supports_credentials=True)
 @login_required
 def customer_put():
     parameters = {
@@ -145,6 +155,7 @@ def customer_put():
 
 
 @app.route('/loan', methods=['PUT'])
+@cross_origin(supports_credentials=True)
 @login_required
 def loan_put():
     parameters = {
@@ -168,6 +179,7 @@ def loan_put():
 
 
 @app.route('/customer/update_balance', methods=['PATCH'])
+@cross_origin(supports_credentials=True)
 @login_required
 def customer_patch_balance():
     if 'CustomerId' in request.args:
@@ -186,6 +198,7 @@ def customer_patch_balance():
 
 
 @app.route('/customer/update_phone', methods=['PATCH'])
+@cross_origin(supports_credentials=True)
 @login_required
 def customer_patch_phone():
     if 'CustomerId' in request.args:
@@ -203,6 +216,7 @@ def customer_patch_phone():
 
 
 @app.route('/customer/update_address', methods=['PATCH'])
+@cross_origin(supports_credentials=True)
 @login_required
 def customer_patch_address():
     if 'CustomerId' in request.args:
@@ -222,6 +236,7 @@ def customer_patch_address():
 
 
 @app.route('/loan/update_amount', methods=['PATCH'])
+@cross_origin(supports_credentials=True)
 @login_required
 def loan_patch_loan_amount():
     if 'LoanId' in request.args:
@@ -241,6 +256,7 @@ def loan_patch_loan_amount():
 
 
 @app.route('/customer/deletebyid', methods=['DELETE'])
+@cross_origin(supports_credentials=True)
 @login_required
 def customer_delete():
     if 'CustomerId' in request.args:
@@ -255,6 +271,7 @@ def customer_delete():
 
 
 @app.route('/loan/deletebyid', methods=['DELETE'])
+@cross_origin(supports_credentials=True)
 @login_required
 def loan_delete():
     if 'LoanId' in request.args:
@@ -269,6 +286,7 @@ def loan_delete():
 
 
 @app.route('/customerloan', methods=['GET'])
+@cross_origin(supports_credentials=True)
 @login_required
 def customer_loan_get():
     curr.execute(
