@@ -116,6 +116,15 @@ INSERT INTO `payment` (`PaymentId`, `LoanId`, `payment_date`, `payment_amount`) 
 	(10, 7, '2022-02-08', 31003.82);
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 
+CREATE TABLE IF NOT EXISTS `customerlogin` (
+  `CustomerId` int(11) NOT NULL,
+  `customer_email` varchar(50) NOT NULL,
+  `customer_pass` varchar(50) NOT NULL,
+  PRIMARY KEY (`customer_email`),
+  KEY `CustomerLogin_FK` (`CustomerId`),
+  CONSTRAINT `CustomerLogin_F` FOREIGN KEY (`CustomerId`) REFERENCES `customer` (`CustomerId`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
