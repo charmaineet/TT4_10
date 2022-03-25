@@ -198,6 +198,13 @@ def loan_delete():
         return jsonify({'message':' no customer id provided'})
 
 
+@app.route('/customerloan', methods = ['GET'])
+def customer_loan_get():
 
+
+    curr.execute("SELECT customer_name,SUM(loan_amount) FROM customer INNER JOIN customerloan ON customer.CustomerId=customerloan.CustomerId INNER JOIN loan on customerloan.LoanId = loan.LoanId WHERE customer.CustomerId = \'{0}\'".format(request.args['CustomerId']))
+
+    sql_modules = curr.fetchall()
+    return jsonify(sql_modules)
 
 app.run(debug=True)
