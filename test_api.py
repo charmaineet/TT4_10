@@ -81,7 +81,7 @@ def customer_put():
 
 @app.route('/loan', methods = ['PUT'])
 def loan_put():
-    # module_code, module_title,module_instructor, module_credits = '', '', '', 0
+    
     parameters = {
         'LoanId': '\'None\'',
         'loan_amount': '\'None\''
